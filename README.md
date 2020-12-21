@@ -16,7 +16,7 @@ Example: python2.7 pocket_matrix7.py 1L2T_ATP_A_1301.pdb 1TF7_ATP_A_1901.pdb
 
 2) **pocket_matrix7_mpi.py** - This is the extension the above script 'pocket_matrix7.py' with added MPI support. This code is designed to handle large number of comparisons (i.e. million pairs ) on a cluster or supercomputer or multi-core desktop machines.
 
-> ### @icon-info-circle NOTE
+> ### NOTE
 >This module only report two things, i) residue-residue correspondence and ii) MAPP scores for all input pairs. It doesn't output the newly aligned coordinates. However, if a user is interested to see the translated coordinated of multiple alignment in a graphics viewer such as Pymol, we recommend them to use pairwise alignment code. 
 
 
@@ -74,7 +74,7 @@ align_output.txt is the output file generated after running the step 3.
 File 'align_output.txt' is a tab separated data containing MAPP scores and residue-residue correspondance for all combinations of site pairs as specified in file 'PairList.txt' for which the coordinate is present in the folder 'ATP'
 
 
-><span style="color:red">  @icon-info-circle To find representative for the ATP binding site, any clustering algorithm can be used. Here we pick one representative based on number connections with the other ATP sites
+><span style="color:red"> To find representative for the ATP binding site, any clustering algorithm can be used. Here we pick one representative based on number connections with the other ATP sites
 after imposing a MAPP score cutoff of M-dist-min > 0.6 and M-dist-max > 0.4.</span>
 
 NOTE: The nature of binding site varies from ligands to ligands. Hence it is advisable to first analyse the site network and pick the correct representative.
