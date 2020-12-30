@@ -54,7 +54,7 @@ For the purpose of this tutorial, we have added a total of 100 ATP binding sites
 1. **Run Pairs.py script -** This will read all sites in the given folder and create a tab separated paired entries stored in 'Pairs.txt'.  
 User can provide their custom pair wise entries to avoid pairs that are not going to be similar. Eg) When two different ligand binding site are present are in same folder
 then it is advisable to create a pairs for .<br>
-Usage: python Pairs.py ATP <br> 
+Usage: python2.7 Pairs.py ATP <br> 
 Output: PairList.txt
 
 
@@ -62,12 +62,12 @@ Output: PairList.txt
 Output: PDBSize.txt
 
 3. **Running MAPP**<br>
-USAGE: mpirun -n 4 python arg1 arg2 arg3<br>
+USAGE: mpirun -n 4 python2.7 pocket_matrix_mpi7.py arg1 arg2 arg3<br>
 arg1 - ATP site folder<br>
 arg2 - output of Pairs.py<br>
 arg3 - output of PDBSize.py
 
-Example) mpirun -n 4 python ATP PairList.txt PDBSize.txt <br>
+Example) mpirun -n 4 python2.7 pocket_matrix_mpi7.py ATP PairList.txt PDBSize.txt <br>
 align_output.txt is the output file generated after running the step 3.
 
 4. **Analysing MAPP Result**-
