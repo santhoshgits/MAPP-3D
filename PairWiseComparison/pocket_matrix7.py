@@ -12,7 +12,7 @@ if len(sys.argv) == 3:
 	file1 = sys.argv[1]
 	file2 = sys.argv[2]
 else:
-	python2.7 pocket_matrix7.py <site1.pdb> <site2.pdb> # site1.pdb site2.pdb
+	print "python2.7 pocket_matrix7.py <site1.pdb> <site2.pdb>" # site1.pdb site2.pdb
 	sys.exit()
 	
 start = time.time()
