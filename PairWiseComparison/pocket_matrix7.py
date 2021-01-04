@@ -158,9 +158,9 @@ def file_process(arr):
 
 def compare_matrices(mat1, mat2):
 
-	if (mat2[0]-1) < mat1[0] < (mat2[0]+1):
-		if (mat2[1]-1) < mat1[1] < (mat2[1]+1):
-			if (mat2[2]-1) < mat1[2] < (mat2[2]+1):
+	if (mat2[0]-1.1) < mat1[0] < (mat2[0]+1.1):
+		if (mat2[1]-1.1) < mat1[1] < (mat2[1]+1.1):
+			if (mat2[2]-1.1) < mat1[2] < (mat2[2]+1.1):
 				return True
 			else:
 				return False
@@ -447,6 +447,16 @@ def process_hits(Final1, Final2):
 			val1 = [ j.split(' ')[1] for j in i[0][:-1] ]
 			val2 = [ j.split(' ')[1] for j in i[1][:-1] ]
 			NewArr.append([val1, val2, len(val1)])
+	'''
+	if len(NewArr) < 10:
+		for i in arr:
+			if int(i[2]) == 3:
+				val1 = [ j.split(' ')[1] for j in i[0][:-1] ]
+				val2 = [ j.split(' ')[1] for j in i[1][:-1] ]
+				if res_dic1[' '.join(val1)][2] < 4:
+					#print res_dic1[' '.join(val1)][2],'0000', val1, val2
+					NewArr.append([val1, val2, len(val1)])	
+	'''
 
 	#print len(NewArr)
 	NewArray = []
@@ -461,7 +471,7 @@ def process_hits(Final1, Final2):
 			#print [ j[0][k]+' '+j[1][k] for k in range(len(j[0])) ]
 			#time.sleep(11)
 			dic_count = sum([ 1 for k in range(len(i[0])) if i[0][k]+' '+i[1][k] in dic  ])
-			if dic_count == len(i[0]):
+			if dic_count == len(j[0]):
 				check = False
 				break
 		if check:
@@ -499,7 +509,10 @@ def kabsch_rotate(P, Q):
     return P	
 
 
-def kabsch(P, Q):
+def kabsch(P, Q, check):
+    if check:
+        P -= np.mean(P, axis=0)
+        Q -= np.mean(Q, axis=0)
     C = np.dot(np.transpose(P), Q)
     V, S, W = np.linalg.svd(C)
     d = (np.linalg.det(V) * np.linalg.det(W)) < 0.0
@@ -889,7 +902,7 @@ def MainCode(aline, bline):
 		#print site1_arr	
 		#print pdb1_trans_coord
 		
-		U = kabsch(copy.deepcopy(site1_arr), copy.deepcopy(site2_arr))	
+		U = kabsch(copy.deepcopy(site1_arr), copy.deepcopy(site2_arr), True)	
 		B_all = copy.deepcopy(site1_coord)
 		B_all -= site1_arr.mean(axis=0)
 		B_all = np.dot(B_all, U)
@@ -906,7 +919,6 @@ def MainCode(aline, bline):
 		else:
 			if len(i[0]) < index_ln:
 				NewCount += 1
-				#break
 				
 		ResLists.append([new_res_list, score])
 		
@@ -956,7 +968,7 @@ def MainCode(aline, bline):
 	site2 -= site2_arr_cnt
 	
 	
-	U = kabsch(site1_arr, site2_arr)	
+	U = kabsch(site1_arr, site2_arr, False)	
 	B_all = copy.deepcopy(site1)
 	B_all -= site1_arr.mean(axis=0)
 	B_all = np.dot(B_all, U)
@@ -971,7 +983,6 @@ MainCode(aline, bline)
 
 
 #print count
-
 
 
 
