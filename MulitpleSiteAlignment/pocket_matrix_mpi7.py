@@ -1135,7 +1135,7 @@ def s1(dic1_s2, res_dic):
 			new_arr1 = chunk_mem_mpi(arr11, runnable_rank)
 			comm.send(new_arr1, dest=runnable_rank)
 			
-		out = open("align_output", 'a+')
+		out = open("align_output.txt", 'a+')
 		for gettable_rank in range(1,size+1):
 			ans = comm.recv(source=MPI.ANY_SOURCE)
 			for l2 in ans:
