@@ -817,7 +817,7 @@ def SiteGen1(arr):
 	 
 def site_gen_het(site_gen_het):
 	dic1, dic2 = {}, {}
-	out = open("align", 'w')
+	out = open("align.txt", 'w')
 	#print site_gen_het,'-----'
 	for i in site_gen_het:
 		#print i
