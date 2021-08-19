@@ -12,7 +12,7 @@ if len(sys.argv) == 3:
 	file1 = sys.argv[1]
 	file2 = sys.argv[2]
 else:
-	print ('c.py <reference.pdb> <fixed.pdb>') # site1.pdb site2.pdb
+	print "python2.7 pocket_matrix7.py <site1.pdb> <site2.pdb>" # site1.pdb site2.pdb
 	sys.exit()
 	
 start = time.time()
@@ -157,7 +157,7 @@ def file_process(arr):
 
 
 def compare_matrices(mat1, mat2):
-	
+
 	if (mat2[0]-1.1) < mat1[0] < (mat2[0]+1.1):
 		if (mat2[1]-1.1) < mat1[1] < (mat2[1]+1.1):
 			if (mat2[2]-1.1) < mat1[2] < (mat2[2]+1.1):
@@ -399,7 +399,7 @@ def run():
 					break	
 					
 				InitiateFirstBreak = True	
-				#dic_single1[i.split(' ')[0]] = 0	
+				dic_single1[i.split(' ')[0]] = 0	
 				dic_single2[ans.split(' ')[0]] = 0
 				#dic_pair_captch[i.split(' ')[1]+'\t'+ans.split(' ')[1]] = 0
 				dic_pair_captch[i.split(' ')[0]+'\t'+ans.split(' ')[0]] = 0
@@ -444,9 +444,6 @@ def process_hits(Final1, Final2):
 		if int(i[2]) > 3:
 			#print i
 			#time.sleep(11)
-			val1 = [ j.split(' ')[1] for j in i[0] ]
-			val2 = [ j.split(' ')[1] for j in i[1] ]
-			NewArr.append([val1, val2, len(val1)])
 			val1 = [ j.split(' ')[1] for j in i[0][:-1] ]
 			val2 = [ j.split(' ')[1] for j in i[1][:-1] ]
 			NewArr.append([val1, val2, len(val1)])
@@ -475,8 +472,6 @@ def process_hits(Final1, Final2):
 			#time.sleep(11)
 			dic_count = sum([ 1 for k in range(len(i[0])) if i[0][k]+' '+i[1][k] in dic  ])
 			if dic_count == len(j[0]):
-				if dic_count > 3 and dic_count+1 == len(i[0]):
-					continue
 				check = False
 				break
 		if check:
@@ -629,92 +624,24 @@ def dihedral1(aa1, aa2):
 				d = ( a1 * a2 + b1 * b2 + c1 * c2 ) 
 				e1 = math.sqrt( a1 * a1 + b1 * b1 + c1 * c1) 
 				e2 = math.sqrt( a2 * a2 + b2 * b2 + c2 * c2) 
-				e1 += 1e-8
-				e2 += 1e-8
 				d = d / (e1 * e2) 
 				A = math.degrees(math.acos(d))
 				ans.append(A)
-			except:
-				ans.append(180.0)
-		else:
-			ans.append(180.0)
-
-	'''
-	for i in range(0, 360, 10):
-		if i <= ans[0] <= i+10:
-			return 360.0-i
-	return 360.0	
-	'''
-	
-	return abs(int(ans[0])-180) 
-    
-    
-    
-    
-    
-       
-def dihedral2(aa1, aa2):	
-	#print '\n'
-	arr = ["_CA","_CN","_N"]
-	arr3 = []
-	# [('_CA', '_CN', '_N'), ('_CA', '_N', '_CN'), ('_CN', '_CA', '_N'), ('_CN', '_N', '_CA'), ('_N', '_CA', '_CN'), ('_N', '_CN', '_CA')]
-	arr3.append(["_CA", "_CN", "_N"])
-	arr1, arr2 = [], []
-	ans = []
-	for j in arr3:
-		arr1, arr2 = [], []
-		for i, k in zip(arr, j):
-			if aa1+i in arr1_dihedral_dic and aa2+k in arr2_dihedral_dic:
-				arr1.append(arr1_dihedral_dic[aa1+i])
-				arr2.append(arr2_dihedral_dic[aa2+k])
-		if len(arr1) == 3:
-			try:
-				arr1 = np.asarray(arr1, dtype=float)
-				arr2 = np.asarray(arr2, dtype=float)
-				ap1, ap2, ap3 = arr1[0], arr1[1], arr1[2]
-				bp1, bp2, bp3 = arr2[0], arr2[1], arr2[2]
-				
-				vector_1 = ap2
-				vector_1 -= ap1
-				
-				vector_2 = bp2
-				vector_2 -= bp1
-				
-				#vector_2 = [bp1, bp2]
-				#	print vector_1, vector_2
-				unit_vector_1 = vector_1 / np.linalg.norm(vector_1)
-				unit_vector_2 = vector_2 / np.linalg.norm(vector_2)
-				dot_product = np.dot(unit_vector_1, unit_vector_2)
-				if dot_produt > 1.0:
-					dot_product = 1.0
-				angle = np.arccos(dot_product)
-				angle = math.degrees(angle)
-				ans.append(angle)
 			except:
 				ans.append(10.0)
 		else:
 			ans.append(10.0)
 
-	return ans[0]    # < 80 
-    
- 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+	for i in range(0, 360, 10):
+		if i <= ans[0] <= i+10:
+			return 360.0-i
+	return 360.0	 
     
     
 def SiteGen():
 	arr = copy.deepcopy(B_all) 
 	minim = []   
 	#print len(site2_coord)
-	rmsd_score = 0
 	ans_dic = defaultdict(list)
 	for i in range(0, len(arr)):
 		info1, name1 = pdb1_res_info[i]
@@ -731,7 +658,6 @@ def SiteGen():
 					ans = math.sqrt(x_ans + y_ans + z_ans)
 					minim.append(ans)
 					if ans < 1.25:
-						rmsd_score += 1
 						#print info1, info2, ans
 						ans_dic[info1].append(info2)
 	
@@ -770,17 +696,16 @@ def SiteGen():
 		
 	arr, dihed_factor, site_check_sum1 = [], [], []	
 	for i in ans_dic.items():
-		dihed_val = dihedral2(i[0], Counter(i[1]).most_common(1)[0][0])
-		#dihed_factor.append(dihed_val)
+		dihed_val = dihedral1(i[0], Counter(i[1]).most_common(1)[0][0])
+		dihed_factor.append(dihed_val)
 		#print i, dihed_val,Counter(i[1])
-		if dihed_val < 80 : #220:
-			dihed_factor.append(dihed_val)
+		if dihed_val > 245:
 			arr.append([i[0]+" "+Counter(i[1]).most_common(1)[0][0]])
-		
+			#print arr[-1]
 		site_check_sum1.append(residue_pairs_dictionary[i[0][:3]][Counter(i[1]).most_common(1)[0][0][:3]])
 
-	site_check_sum2 = sum(site_check_sum1)*sum(dihed_factor)*(rmsd_score+1)		
-	return site_check_sum2, arr, rmsd_score, sum(site_check_sum1)
+	site_check_sum1 = sum(site_check_sum1)*sum(dihed_factor)		
+	return site_check_sum1, arr
     
     
 def SiteGen1(arr):
@@ -817,7 +742,7 @@ def SiteGen1(arr):
 	 
 def site_gen_het(site_gen_het):
 	dic1, dic2 = {}, {}
-	out = open("align", 'w')
+	out = open("align.txt", 'w')
 	#print site_gen_het,'-----'
 	for i in site_gen_het:
 		#print i
@@ -986,7 +911,7 @@ def MainCode(aline, bline):
 		site1a = pdb1_generated_coord
 		site2a = pdb2_generated_coord
 		
-		score, new_res_list, rmsd_score, summed = SiteGen()
+		score, new_res_list = SiteGen()
 		#print i,score,'---\n'
 		if score > maxi:
 			maxi = score
@@ -995,14 +920,10 @@ def MainCode(aline, bline):
 			if len(i[0]) < index_ln:
 				NewCount += 1
 				
-		ResLists.append([new_res_list, score, rmsd_score, summed])
+		ResLists.append([new_res_list, score])
 		
-		
-	ResLists = sorted(ResLists, key=lambda x:float(x[1]), reverse=True)[:10]		
-	match_ln, res_score = len(ResLists[0][0])-1, ResLists[0][3]
-	ResLists = [ i for i in ResLists if len(i[0]) >= match_ln and i[3] == res_score]
-	ResLists = sorted(ResLists, key=lambda x:float(x[2]), reverse=True)
-	
+	ResLists = sorted(ResLists, key=lambda x:float(x[1]), reverse=True)	
+	#print ResLists[0]
 	line1 = ResLists[0][0]
 	#print ResLists[0][0]
 	site1_arr, site2_arr = [], []
@@ -1041,15 +962,13 @@ def MainCode(aline, bline):
 	if len(site1_arr) == 0 or len(site2_arr) == 0:
 		print 'No result'
 		sys.exit()
-		
-
 	site1_arr_cnt = site1_arr.mean(axis=0)
 	site2_arr_cnt = site2_arr.mean(axis=0)
 	site2_new = copy.deepcopy(site2)
 	site2 -= site2_arr_cnt
 	
 	
-	U = kabsch(copy.deepcopy(site1_arr), copy.deepcopy(site2_arr), True)	
+	U = kabsch(site1_arr, site2_arr, False)	
 	B_all = copy.deepcopy(site1)
 	B_all -= site1_arr.mean(axis=0)
 	B_all = np.dot(B_all, U)
@@ -1064,7 +983,6 @@ MainCode(aline, bline)
 
 
 #print count
-
 
 
 
