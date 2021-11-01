@@ -1,4 +1,4 @@
-# SiteMotif (MAPP-3D) is a New method for aligning protein binding sites ( both pairwise and multiple site alignment ) in sequence-order indenpendent fashion written in Python version 2.7.
+# SiteMotif (MAPP-3D) is a graph based method for aligning protein binding sites ( both pairwise and multiple site alignment ) in sequence-order independent fashion written in Python version 2.7.
 **Two types of scripts have been made to serve two independent purposes**
 1) **pocket_matrix7.py** - This code perform binding site alignment taking a pair of binding sites as the inputs (**i.e pairwise alignment**).
 It takes input an atomic coordinates of the binding sites in PDB format, finds optimal alignment, and superposes site1 onto site2.<br>
