@@ -160,7 +160,7 @@ def compare_matrices(mat1, mat2):
 	
 	if (mat2[0]-1.1) < mat1[0] < (mat2[0]+1.1):
 		if (mat2[1]-1.1) < mat1[1] < (mat2[1]+1.1):
-			if (mat2[2]-1.1) < mat1[2] < (mat2[2]+1.1):
+			if (mat2[2]-1.51) < mat1[2] < (mat2[2]+1.51):
 				return True
 			else:
 				return False
