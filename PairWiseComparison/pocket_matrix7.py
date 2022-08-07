@@ -685,7 +685,7 @@ def dihedral2(aa1, aa2):
 				unit_vector_1 = vector_1 / np.linalg.norm(vector_1)
 				unit_vector_2 = vector_2 / np.linalg.norm(vector_2)
 				dot_product = np.dot(unit_vector_1, unit_vector_2)
-				if dot_produt > 1.0:
+				if dot_product > 1.0:
 					dot_product = 1.0
 				angle = np.arccos(dot_product)
 				angle = math.degrees(angle)
