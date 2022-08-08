@@ -655,6 +655,7 @@ def dihedral1(aa1, aa2):
        
 def dihedral2(aa1, aa2):	
 	#print '\n'
+	return 10
 	arr = ["_CA","_CN","_N"]
 	arr3 = []
 	# [('_CA', '_CN', '_N'), ('_CA', '_N', '_CN'), ('_CN', '_CA', '_N'), ('_CN', '_N', '_CA'), ('_N', '_CA', '_CN'), ('_N', '_CN', '_CA')]
